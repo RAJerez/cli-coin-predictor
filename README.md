@@ -1,4 +1,4 @@
-# Coin-Predictor
+# Cli-Coin-Predictor
 
 
 ## Environment Setup
