@@ -13,8 +13,8 @@ The project is compatible with any Python version `>= 3.8`. But I developed it w
 
 ### Clone the repository:
 ```bash
-git clone git@github.com:MuttData/exam-rodrigo-jerez.git
-cd exam-rodrigo-jerez
+git clone git@github.com:RAJerez/cli-coin-predictor.git
+cd cli-coin-predictor
 ```
 
 ### Poetry

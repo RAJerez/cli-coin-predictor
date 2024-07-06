@@ -20,10 +20,11 @@ services:
       dockerfile: Dockerfile
     container_name: app
     environment:
-      - DB_CONNSTR: ${DB_CONNSTR}
-      - URL: ${URL}
+      DB_CONNSTR: ${DB_CONNSTR}
+      URL: ${URL}
     ports:
       - "8000:8000"
+    entrypoint: ["sh", "-c", "while :; do sleep 2073600; done"]
     volumes:
       - ./app:/app
 

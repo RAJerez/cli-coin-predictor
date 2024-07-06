@@ -22,14 +22,13 @@ class Coin:
             response = requests.get(endpoint)
             result = response.json()
             coin = str(result["id"])
-            date = self.date
             price = float(result["market_data"]["current_price"]["usd"])
             json = str(response.text)
-            data_f = f"{coin};{date};{price};{json}"
+            data_f = f"{coin};{self.date};{price};{json}"
             return data_f
         except Exception as e:
             log.error(f"Error: {e}")
-
+            
     def write_file(self, data_f):
         path_f = self.path + f"/{self.id}_{self.date}.csv"
         head = "coin;date;price;json"
@@ -51,3 +50,16 @@ class Coin:
         )
         df_month.columns = ["coin", "year", "month", "max_price", "min_price"]
         return df_month
+
+if __name__ == "__main__":
+    url = "https://api.coingecko.com/api/v3/coins/"
+    id = "bitcoin"
+    date = "2024-04-22"
+    path = "../../data"
+    
+    coin = Coin(url, id, date, path)
+    response = coin.api_consult()
+    coin.write_file(response)
+    print(f"The file {id}_{date}.csv has been created correctly")
+    
+    

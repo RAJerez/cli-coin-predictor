@@ -17,6 +17,7 @@ requests = "^2.31.0"
 alembic = "^1.13.1"
 schedule = "^1.2.1"
 ipykernel = "^6.29.3"
+pdbpp = "^0.10.3"
 
 
 [build-system]

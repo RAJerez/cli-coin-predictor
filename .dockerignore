@@ -3,4 +3,14 @@
 README.md
 tmp/
 postgres-db/
+app/data/
 modelo-proyecto.txt
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+.env
+poetry.lock
+pyproject.toml
