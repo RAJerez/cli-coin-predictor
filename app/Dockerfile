@@ -1,27 +1,26 @@
 FROM python:3.10-slim
 
-ENV POETRY_VERSION=1.7.1
-ENV POETRY_HOME=/opt/poetry
-ENV POETRY_VENV=/opt/poetry-venv
-ENV POETRY_CACHE_DIR=/opt/.cache
+RUN apt-get update
 
-RUN python3 -m venv $POETRY_VENV \
-    && $POETRY_VENV/bin/pip install -U pip setuptools \
-    && $POETRY_VENV/bin/pip install poetry==${POETRY_VERSION}
+# Prevents Python from writing pyc files.
+ENV PYTHONDONTWRITEBYTECODE=1
 
-ENV PATH="${PATH}:${POETRY_VENV}/bin"
+# Keeps Python from buffering stdout and stderr to avoid situations where
+# the application crashes without emitting any logs due to buffering.
+ENV PYTHONUNBUFFERED=1
+
+RUN pip install poetry==1.7.1
+
+ENV PYTHONPATH "${PYTHONPATH}:/app/"
 
 WORKDIR /app
 
 COPY ../poetry.lock ./
 COPY ../pyproject.toml ./
-# COPY ../.env ./
 
-RUN poetry install --no-interaction --no-root --no-dev
+RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
+RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD ["poetry", "run", "./cli/cli.py"]
-
-#RUN poetry run alembic upgrade head
-#CMD ["python", "-c", "print('Hello, World!')"]
+CMD ["python3", "cli/cli.py"]
